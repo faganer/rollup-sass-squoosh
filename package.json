@@ -1,0 +1,52 @@
+{
+  "name": "rollup-sass-squoosh",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "npm-run-all --parallel watch",
+    "css-compile": "sass --style expanded --no-source-map  --no-error-css src/scss/:dist/css/",
+    "css-minify": "postcss --replace \"dist/css/*.css\"",
+    "css-lint": "npm-run-all --aggregate-output --continue-on-error --parallel css-lint-*",
+    "css-lint-stylelint": "stylelint --fix \"src/scss**/*.scss\" --cache --cache-location .cache/.stylelintcache --rd",
+    "js-compile": "rollup -c",
+    "js-lint": "eslint --cache --cache-location .cache/.eslintcache --report-unused-disable-directives .",
+    "image-minify": "gulp",
+    "lint": "npm-run-all --aggregate-output --continue-on-error --parallel js-lint css-lint",
+    "watch": "npm-run-all --parallel watch-*",
+    "watch-css-main": "nodemon --watch src/scss/ --ext scss --exec \"npm-run-all css-lint css-compile css-minify\"",
+    "watch-js-main": "nodemon --watch src/js/ --ext js --exec \"npm-run-all js-lint js-compile\"",
+    "watch-image-main": "nodemon --watch src/images/ --exec \"npm-run-all image-minify\""
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/preset-env": "^7.15.6",
+    "@popperjs/core": "2.10.1",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.5",
+    "autoprefixer": "^10.3.6",
+    "cssnano": "^5.0.8",
+    "eslint": "7.12.1",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "4.2.1",
+    "gulp": "^4.0.2",
+    "gulp-changed": "^4.0.3",
+    "gulp-libsquoosh": "^1.0.12",
+    "nodemon": "^2.0.13",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.3.8",
+    "postcss-cli": "^9.0.1",
+    "rollup": "^2.57.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "sass": "^1.42.1",
+    "stylelint": "^13.13.1",
+    "stylelint-config-twbs-bootstrap": "^2.2.3"
+  },
+  "dependencies": {
+    "bootstrap": "^5.1.1",
+    "lodash-es": "^4.17.21"
+  }
+}
